@@ -227,4 +227,11 @@ select * from tkawy_tb;
 commit;
 
 --------------------------------------------------------------------------
- --ㅎㅇㅎㅇ
+ -- q_sj(제목) 컬럼명 변경
+ALTER TABLE qna_tb RENAME COLUMN q_sj TO q_title;
+
+-- 바꾼 컬럼 확인 하쇼
+SELECT
+    *
+FROM
+    qna_tb;
