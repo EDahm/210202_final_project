@@ -5,7 +5,7 @@ CREATE TABLE mber_tb (
     m_num       VARCHAR2(20),
     m_regdate   DATE DEFAULT sysdate,
     m_email     VARCHAR2(100) NOT NULL,
-    m_password  VARCHAR2(20) NOT NULL,
+    m_password  VARCHAR2(1000) NOT NULL,
     m_name      VARCHAR2(30) NOT NULL,
     m_ncnm      VARCHAR2(30) NOT NULL,
     m_contact   VARCHAR2(15) NOT NULL,
