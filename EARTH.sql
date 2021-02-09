@@ -1,6 +1,6 @@
------------------------------------------------------------2¿ù 9ÀÏ È­¿äÀÏ
+-----------------------------------------------------------2ì›” 9ì¼ í™”ìš”ì¼
 
--- È¸¿ø --
+-- íšŒì› --
 CREATE TABLE mber_tb (
     m_num       VARCHAR2(20),
     m_regdate   DATE DEFAULT sysdate,
@@ -10,11 +10,11 @@ CREATE TABLE mber_tb (
     m_ncnm      VARCHAR2(30) NOT NULL,
     m_contact   VARCHAR2(15) NOT NULL,
     m_birth     DATE DEFAULT sysdate,
-    m_type      VARCHAR2(10) DEFAULT 'ÀÏ¹İ',
+    m_type      VARCHAR2(10) DEFAULT 'ì¼ë°˜',
     m_point     NUMBER(10, 0) DEFAULT 0
 );
 
--- ±âº»Å° ¼³Á¤ --
+-- ê¸°ë³¸í‚¤ ì„¤ì • --
 ALTER TABLE mber_tb ADD CONSTRAINT pk_mber_tb PRIMARY KEY ( m_num );
 
 CREATE SEQUENCE seq_qna;
@@ -28,16 +28,16 @@ FROM
 
 CREATE SEQUENCE seq_qna_reply;
 
--- È¸¿ø¹øÈ£ ½ÃÄö½º --
+-- íšŒì›ë²ˆí˜¸ ì‹œí€€ìŠ¤ --
 CREATE SEQUENCE seq_mber INCREMENT BY 1 START WITH 100000;
 
--- ¼ö°Å¿¹¾à¹øÈ£ ½ÃÄö½º --
+-- ìˆ˜ê±°ì˜ˆì•½ë²ˆí˜¸ ì‹œí€€ìŠ¤ --
 create sequence seq_tkawy
 INCREMENT by 1
 start with 1000;
 
 
--- #################qna °Ô½ÃÆÇ Å×ÀÌºí################# --
+-- #################qna ê²Œì‹œíŒ í…Œì´ë¸”################# --
 CREATE TABLE qna_tb (
     q_bno       NUMBER(10, 0),
     m_num       VARCHAR2(20),
@@ -48,7 +48,7 @@ CREATE TABLE qna_tb (
     q_regdate   DATE DEFAULT sysdate,
     q_replycnt  NUMBER DEFAULT 0
 );
--- #################qna ´ñ±Û Å×ÀÌºí################# --
+-- #################qna ëŒ“ê¸€ í…Œì´ë¸”################# --
 CREATE TABLE qna_reply_tb (
     qr_rno      NUMBER(10, 0),
     q_bno       NUMBER(10, 0),
@@ -57,22 +57,22 @@ CREATE TABLE qna_reply_tb (
     qr_replyer  VARCHAR2(50) NOT NULL,
     qr_regdate  DATE DEFAULT sysdate
 );
--- #################qna Ä«Å×°í¸® Å×ÀÌºí################# --
+-- #################qna ì¹´í…Œê³ ë¦¬ í…Œì´ë¸”################# --
 CREATE TABLE qna_category_tb (
     qc_bno   NUMBER(10, 0),
     qc_name  VARCHAR2(50) NOT NULL
 );
--- qna °Ô½ÃÆÇ ±âº»Å° ¼³Á¤ --
+-- qna ê²Œì‹œíŒ ê¸°ë³¸í‚¤ ì„¤ì • --
 ALTER TABLE qna_tb ADD CONSTRAINT pk_qna_tb PRIMARY KEY ( q_bno );                                           
                                            
--- qna ´ñ±Û ±âº»Å° ¼³Á¤ --
+-- qna ëŒ“ê¸€ ê¸°ë³¸í‚¤ ì„¤ì • --
 ALTER TABLE qna_reply_tb ADD CONSTRAINT pk_qna_reply_tb PRIMARY
 KEY ( qr_rno );
 
--- qna Ä«Å×°í¸® ±âº»Å° ¼³Á¤ --
+-- qna ì¹´í…Œê³ ë¦¬ ê¸°ë³¸í‚¤ ì„¤ì • --
 ALTER TABLE qna_category_tb ADD CONSTRAINT pk_qna_category_tb PRIMARY KEY ( qc_bno );
 
--- ¿Ü·¡Å° ¼³Á¤---------
+-- ì™¸ë˜í‚¤ ì„¤ì •---------
 ALTER TABLE qna_tb
     ADD CONSTRAINT fk_mber_tb_to_qna_tb_1 FOREIGN KEY ( m_num )
         REFERENCES mber_tb ( m_num );
@@ -81,8 +81,8 @@ ALTER TABLE qna_tb
     ADD CONSTRAINT fk_qna_category_tb_to_qna_tb_2 FOREIGN KEY ( qc_bno )
         REFERENCES qna_category_tb ( qc_bno );
 
---***************¿Ü·¡Å° º¸·ù ¿À·ù³² ¤Ğ¤Ğ------------------
--- ¿Ü·¡Å° ¼³Á¤ --
+--***************ì™¸ë˜í‚¤ ë³´ë¥˜ ì˜¤ë¥˜ë‚¨ ã… ã… ------------------
+-- ì™¸ë˜í‚¤ ì„¤ì • --
 ALTER TABLE qna_reply_tb
     ADD CONSTRAINT fk_qna_tb_to_qna_reply_tb_1 FOREIGN KEY ( q_bno )
         REFERENCES qna_tb ( q_bno );
@@ -91,9 +91,9 @@ ALTER TABLE qna_reply_tb
     ADD CONSTRAINT fk_qna_tb_to_qna_reply_tb_2 FOREIGN KEY ( m_num )
         REFERENCES mber_tb ( m_num );
         
---***************¿Ü·¡Å° º¸·ù ¿À·ù³² ¤Ğ¤Ğ--------------- 
+--***************ì™¸ë˜í‚¤ ë³´ë¥˜ ì˜¤ë¥˜ë‚¨ ã… ã… --------------- 
 
--- #############¼ö°Å¿¹¾à Å×ÀÌºí############################--
+-- #############ìˆ˜ê±°ì˜ˆì•½ í…Œì´ë¸”############################--
 
 CREATE TABLE tkawy_tb (
     t_bno          VARCHAR2(20) NOT NULL,
@@ -104,14 +104,14 @@ CREATE TABLE tkawy_tb (
     t_plastic_cap  NUMBER(5, 0) default 0,
     t_vstng_cmpny  VARCHAR2(100) NOT NULL,
     t_date_vist    DATE DEFAULT sysdate,
-    t_progress     VARCHAR2(20) DEFAULT '½ÅÃ»¿Ï·á'
+    t_progress     VARCHAR2(20) DEFAULT 'ì‹ ì²­ì™„ë£Œ'
 );
 
--- ¼ö°Å ¿¹¾à ±âº»Å° ¼³Á¤ --
+-- ìˆ˜ê±° ì˜ˆì•½ ê¸°ë³¸í‚¤ ì„¤ì • --
 ALTER TABLE tkawy_tb ADD CONSTRAINT pk_tkawy_tb PRIMARY KEY ( t_bno,
                                                               m_num );
 
--- ¿Ü·¡Å° ¼³Á¤ --
+-- ì™¸ë˜í‚¤ ì„¤ì • --
 ALTER TABLE tkawy_tb
     ADD CONSTRAINT fk_mber_tb_to_tkawy_tb_1 FOREIGN KEY ( m_num )
         REFERENCES mber_tb ( m_num );
@@ -153,9 +153,9 @@ INSERT INTO qna_tb (
     q_content
 ) VALUES (
     seq_qna.NEXTVAL,
-    'Å×½ºÆ® Á¦¸ñ',
+    'í…ŒìŠ¤íŠ¸ ì œëª©',
     'user00',
-    'Å×½ºÆ® ³»¿ë'
+    'í…ŒìŠ¤íŠ¸ ë‚´ìš©'
 );
 
 INSERT INTO qna_tb (
@@ -165,9 +165,9 @@ INSERT INTO qna_tb (
     q_content
 ) VALUES (
     seq_qna.NEXTVAL,
-    'Å×½ºÆ® Á¦¸ñ',
+    'í…ŒìŠ¤íŠ¸ ì œëª©',
     'user00',
-    'Å×½ºÆ® ³»¿ë'
+    'í…ŒìŠ¤íŠ¸ ë‚´ìš©'
 );
 
 SELECT
@@ -181,8 +181,8 @@ INSERT INTO qna_reply_tb (
     qr_replyer
 ) VALUES (
     seq_qna_reply.NEXTVAL,
-    'Å×½ºÆ® ´ñ±Û ÀÔ´Ï´Ù.',
-    'Ãæ¼º'
+    'í…ŒìŠ¤íŠ¸ ëŒ“ê¸€ ì…ë‹ˆë‹¤.',
+    'ì¶©ì„±'
 );
 
 INSERT INTO qna_category_tb (
@@ -190,18 +190,18 @@ INSERT INTO qna_category_tb (
     qc_name
 ) VALUES (
     seq_qna_category.NEXTVAL,
-    '¼ö°Å'
+    'ìˆ˜ê±°'
 );
 
--- È¸¿ø ´õ¹Ìµ¥ÀÌÅÍ --
+-- íšŒì› ë”ë¯¸ë°ì´í„° --
 insert into mber_tb (m_num, m_email, m_password, m_name, m_ncnm, m_contact, m_birth)
-values ('M' || seq_mber.nextval, 'test@test.com', 'test', 'Å×½ºÆ®', 'Å×½ºÆ®´Ğ³×ÀÓ', '010-0000-0000', '2021-02-09');
+values ('M' || seq_mber.nextval, 'test@test.com', 'test', 'í…ŒìŠ¤íŠ¸', 'í…ŒìŠ¤íŠ¸ë‹‰ë„¤ì„', '010-0000-0000', '2021-02-09');
 
 select * from mber_tb;
 
--- ¼ö°Å¿¹¾à ´õ¹Ìµ¥ÀÌÅÍ--
+-- ìˆ˜ê±°ì˜ˆì•½ ë”ë¯¸ë°ì´í„°--
 insert into tkawy_tb (t_bno, m_num, t_contact, t_plastic, t_plastic_cap, t_vstng_cmpny, t_date_vist)
-values ('T' || to_CHAR(sysdate,'YYYY-MM-DD') || '-' ||seq_tkawy.nextval, 'M100000', '010-0000-0000', 5, 5, 'Å×½ºÆ®»óÁ¡', '2021-02-09');
+values ('T' || to_CHAR(sysdate,'YYYY-MM-DD') || '-' ||seq_tkawy.nextval, 'M100000', '010-0000-0000', 5, 5, 'í…ŒìŠ¤íŠ¸ìƒì ', '2021-02-09');
 
 
 insert into tkawy_tb (
@@ -227,3 +227,4 @@ select * from tkawy_tb;
 commit;
 
 --------------------------------------------------------------------------
+ --ã…ã…‡ã…ã…‡
