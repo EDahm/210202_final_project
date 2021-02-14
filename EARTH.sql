@@ -565,3 +565,10 @@ INSERT INTO bid_tb (
     values ('M100144', 'A2021-02-10', 600);
     
 commit;
+
+-- 댓글 인덱스 --
+create index idx_reply on qna_reply_tb(q_bno desc, qr_rno asc);
+
+-- qna_tb에 조회수 컬럼 추가 --
+ALTER TABLE qna_tb ADD(q_hits NUMBER DEFAULT 0);
+COMMIT;
