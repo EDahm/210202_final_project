@@ -572,3 +572,77 @@ create index idx_reply on qna_reply_tb(q_bno desc, qr_rno asc);
 -- qna_tb에 조회수 컬럼 추가 --
 ALTER TABLE qna_tb ADD(q_hits NUMBER DEFAULT 0);
 COMMIT;
+    
+    
+ 
+    
+--------------------------------------------------------------------------------
+----------------------------------------------------2월 15일 월요일
+ALTER TABLE mber_tb DROP COLUMN m_birth;
+
+SELECT
+    *
+FROM
+    mber_tb;
+
+SELECT
+    *
+FROM
+    tkawy_tb;
+
+ALTER TABLE qna_tb ADD (
+    q_hits NUMBER DEFAULT 0
+);
+
+COMMIT;
+
+SELECT
+    *
+FROM
+    qna_reply_tb;
+
+TRUNCATE TABLE qna_reply_tb;
+
+COMMIT;
+
+SELECT
+    *
+FROM
+    qna_tb;
+
+SELECT
+    *
+FROM
+    tkawy_tb;
+
+DROP TABLE qna_category_tb;
+
+ALTER TABLE qna_category_tb DROP PRIMARY KEY;
+
+ALTER TABLE qna_tb DROP CONSTRAINT fk_qna_category_tb_to_qna_tb_2;
+
+INSERT INTO qna_tb (
+    q_bno,
+    m_num,
+    q_title,
+    q_ncnm,
+    q_content
+) VALUES (
+    seq_qna,
+    nextval,
+    'M' || seq_mber.NEXTVAL,
+    '테스트 제목',
+    '테스트 닉네임',
+    '테스트 내용'
+);
+
+COMMIT;
+
+
+alter table tkawy_tb drop column t_done_date;
+
+commit;
+
+select * from tkawy_tb;
+
+select * from mber_tb;
