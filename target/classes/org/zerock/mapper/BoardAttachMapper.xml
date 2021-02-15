@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.BoardAttachMapper">
+ 
+	<insert id="insert">
+		insert into qna_attach_tb (qa_uuid, qa_upload_path, qa_file_name, qa_file_type, q_bno)
+		values (#{qa_uuid}, #{qa_upload_path}, #{qa_file_name}, #{qa_file_type}, #{q_bno} )
+	</insert>
+ 	
+ 	<delete id="delete">
+ 	
+ 	delete from qna_attach_tb where qa_uuid = #{qa_uuid}
+ 	
+ 	</delete>
+ 	
+ 	<delete id="deleteAll">
+ 		delete qna_attach_tb where q_bno = #{q_bno}
+ 	</delete>
+ 	
+ 	<select id="findByBno" resultType="org.zerock.domain.BoardAttachVO">
+ 	select * from qna_attach_tb where q_bno = #{q_bno}
+ 	</select>
+ </mapper>

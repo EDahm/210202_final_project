@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.TkawyMapper">
+
+	<select id="getList" resultType="org.zerock.domain.TkawyVO">
+<![CDATA[
+select * from tkawy_tb
+]]>
+	</select>
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							t_bno like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'M'.toString()">
+							m_num like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							t_vstng_cmpny like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'P'.toString()">
+							t_progress like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+
+	<select id="getListWithPaging"
+		resultType="org.zerock.domain.TkawyVO">
+	<![CDATA[
+	select t_bno, m_num, t_regdate, t_contact, t_plastic, t_plastic_cap, t_vstng_cmpny, t_date_vist, t_progress 
+	from (select /*+INDEX_DESC(tkawy_tb pk_tkawy_tb) */
+	rownum rn, t_bno, m_num, t_regdate, t_contact, t_plastic, t_plastic_cap, t_vstng_cmpny, t_date_vist, t_progress
+	from tkawy_tb
+	where 
+	]]>
+
+		<include refid="criteria"></include>	
+	
+	<![CDATA[
+	rownum <= #{pageNum} * #{amount})
+	where rn > (#{pageNum} -1) * #{amount}
+	]]>
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select count(*) from tkawy_tb
+		
+		where <include refid="criteria"></include>
+		
+		t_bno LIKE 'T%'
+	</select>
+
+	<insert id="insert">
+
+		<selectKey keyProperty="t_bno" order="BEFORE"
+			resultType="String">
+			select 'T' || to_CHAR(sysdate,'YYYY-MM-DD') || '-'
+			||seq_tkawy.nextval from
+			dual
+		</selectKey>
+
+		insert into tkawy_tb (t_bno, m_num, t_contact,
+		t_plastic,
+		t_plastic_cap, t_vstng_cmpny, t_date_vist)
+		VALUES (#{t_bno}, #{m_num},
+		#{t_contact},
+		#{t_plastic}, #{t_plastic_cap}, #{t_vstng_cmpny},
+		to_date(#{t_date_vist},'YYYY-MM-DD'))
+
+	</insert>
+
+
+	<select id="read" resultType="org.zerock.domain.TkawyVO">
+		select * from tkawy_tb where t_bno
+		= #{t_bno}
+	</select>
+
+	<update id="update">
+		update tkawy_tb
+		set t_progress= #{t_progress}
+		where
+		t_bno = #{t_bno}
+	</update>
+
+	<update id="updateDone">
+		{call
+		declare
+		begin
+		update tkawy_tb
+		set t_progress=
+		'수거완료'
+		where t_bno = #{t_bno};
+
+		update mber_tb set m_point = m_point +
+		(#{t_plastic} * 2) + #{t_plastic_cap}
+		where m_num = #{m_num};
+		end
+		}
+	</update>
+
+	<update id="updateCanceled">
+		update tkawy_tb
+		set t_progress= '수거취소'
+		where t_bno =
+		#{t_bno}
+	</update>
+
+	<delete id="delete">
+		delete from tkawy_tb where t_bno = #{t_bno}
+	</delete>
+
+
+</mapper>
