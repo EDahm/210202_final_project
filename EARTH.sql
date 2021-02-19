@@ -649,33 +649,3 @@ select * from mber_tb;
     
 
     
- --------------------------------------------------------------------------------
-----------------------------------------------------2월 18일 목요일
- -- 경매테이블, 경매신청테이블 date 타입 varchar2타입으로 수정(수정하기 오류 원인)
-    
- 
-select * from auc_tb;
-
-desc auc_tb;
-
-alter table auc_tb modify a_prgrs_prd varchar2(20);
-
-delete auc_tb;
-
-select * from bid_tb;
-
-delete bid_tb;
-
-select * from shpng_tb;
-
-delete shpng_tb;
-
-select * from auc_aply_tb;
-
-delete auc_aply_tb;
-
-desc auc_aply_tb;
-
-alter table auc_aply_tb modify aa_hope_prd varchar2(20);
-
-commit;
