@@ -649,3 +649,117 @@ select * from mber_tb;
     
 
     
+
+--------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------2월 22일 수거업체 테이블
+    
+-- 컬럼명 변경(for 외래키 설정) --
+alter table store_tb rename column s_name to t_vstng_cmpny;
+
+-- 컬럼 타입 변경(for 외래키 설정)--
+alter table store_tb modify t_vstng_cmpny  VARCHAR2(100);
+
+-- 수거업체 진행상태 추가 --
+alter table store_tb add s_progress varchar(20) default '수거진행';
+
+
+-- 기본키 설정 --
+ALTER TABLE store_tb ADD CONSTRAINT pk_store_tb PRIMARY KEY ( t_vstng_cmpny );
+
+
+-- 제약조건 걸릴 테이블 데이터 삭제 --
+delete tkawy_tb;
+
+
+-- 외래키 설정 --
+ALTER TABLE tkawy_tb
+    ADD CONSTRAINT fk_store_tb_to_tkawy_tb FOREIGN KEY ( t_vstng_cmpny )
+        REFERENCES store_tb ( t_vstng_cmpny );
+        
+        
+-- 수거업체 데이터 다시 심기 --
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('없는가게 쓸', '서울특별시 은평구 녹번동 산1-55', '070-4771-0039', '월-금 11:00-20:00 / 토 17:00-20:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('라마홈', '서울특별시 종로구 창성동 149번지 1층 101호', '수-토 12:30-18:30');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('동선 나눔점방', '서울특별시 성북구 동선동3가 130-7', '화-일 12:00-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('레디투웰니스', '서울특별시 중구 회현동 퇴계로2길 9-8', '070-4771-0039', '월-금 11:00-20:00 / 토 17:00-20:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('라운드트라이앵글(디자인스튜디오)', '서울특별시 용산구 후암동 두텁바위로1길 93-6', '월-금 10:00-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('보틀팩토리', '서울특별시 서대문구 연희동 708번지 1층', '화-일 11:00-22:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('dear.earth', '서울특별시 서대문구 수색로 43 104호 가좌청년상가 104호', '070-4485-3388', '화-토 11:30-20:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('알맹상점(리필스테이션)', '서울특별시 마포구 합정동 월드컵로 49 한우마을 2층', '010-2229-1027', '월-금 11:00-20:00 / 토 17:00-20:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('비그린(스페이스 살림)', '서울특별시 동작구 대방동 노량진로 10 ', '02-810-5088', '목금토 13:00-19:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('waste upso', '서울특별시 서초구 방배4동 방배로 189 ', '금,토 13:00-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('제로웨이스트샵 지구', '서울특별시 동작구 상도동 성대로1길 16', '070-7640-4940', '화-토 13:00-20:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('덕분애 제로웨이스트샵', '서울특별시 서초구 서초4동 서초대로 389', '02-6959-4479', '월-금 11:00-19:00 / 토 11:00-16:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('허그어웨일', '서울특별시 강서구 화곡동 화곡로55길 23', '월-금 11:00-19:00 / 토 12:00-17:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('더초록(시민단체)', '서울특별시 구로구 오류동 고척로16길 72', '월-금 10:00-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('더피커', '서울특별시 성동구 성수동1가 왕십리로 115 헤이그라운드 9층', '070-4118-0710', '화-금 12:00-19:00 / 토 12:00-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('디어에코', '서울특별시 광진구 구의3동 아차산로65길 22', '화-금 11:00-20:00 / 토 13:00-20:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('대안생활 공기', '서울특별시 강동구 암사동 상암로3길 24 104호', '010-9948-0716', '월-금 09:30-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('송포어스(song for earth)', '서울특별시 강동구 성내동 288-4', '070-8095-3534', '월-금 15:00-20:00 / 토 11:00-19:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('지구수호대 리필상점', '인천광역시 연희동 연희동 796-12번지 5층 504 505호', '010-9227-5911', '월-금 10:00-16:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('소중한모든것', '인천 남동구 인하로 617 플러스타워 108호', '월-금 11:00-20:00 / 토 13:00-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('꿈꾸는부엉이(녹색대안공간)', '경기도 안양시 동안구 비산동 377-1 1층', '070-8113-5311', '월-금 10:00-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('솝리필스테이션', '경기 성남시 수정구 위례광장로 21 105호', '화-토 11:00-20:00 / 일 11:00-18:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('동그라미 리필러리', '경기도 성남시 분당구 운중동 판교로33번길 9 1층', '0507-1346-3447', '월-금 12:30-18:00 / 토 11:00-17:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('가치상점', '경기도 수원시 권선구 세류3동 세권로 140 B01', '010-9144-8781', '일-금 13:00-20:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('지구에티켓', '경기도 오산시 세마역로 19번길 52  52 인도방향 101', '화-금 10:00-19:00 / 토 10:00-17:00 / 일 10:00-14:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_biz_h)
+values ('동네마당', '충청북도 청주시 흥덕구 비하동 비하로57번길 38-8 ', '월-토 11:00-19:00');
+
+insert into store_tb (t_vstng_cmpny, s_address, s_contact, s_biz_h)
+values ('은영상점', '대전광역시 유성구 온천2동 대학로159번길 2 ', '0507-1321-9475', '화-토 13:00-20:00');
+
+
+select * from store_tb;
+
+commit;
