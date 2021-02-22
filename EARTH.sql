@@ -660,7 +660,7 @@ alter table store_tb rename column s_name to t_vstng_cmpny;
 alter table store_tb modify t_vstng_cmpny  VARCHAR2(100);
 
 -- 수거업체 진행상태 추가 --
-alter table store_tb add s_progress varchar(20) default '수거진행';
+alter table store_tb add s_progress varchar(20) default '진행중';
 
 
 -- 기본키 설정 --
