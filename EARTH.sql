@@ -783,3 +783,11 @@ alter table tkawy_tb add t_done_date date default '1111-11-11';
 alter table mber_tb add enable char(1) default '1';
 
 select * from mber_tb;
+
+    
+    
+-------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------2월 27일 댓글있는 게시글 삭제위해 외래키 제약 변경
+alter table qna_reply_tb drop constraint FK_QNA_TB_TO_QNA_REPLY_TB_1;
+
+ALTER TABLE qna_reply_tb ADD CONSTRAINT fk_qna_tb_to_qna_reply_tb_1 FOREIGN KEY ( q_bno ) REFERENCES qna_tb ( q_bno ) ON DELETE CASCADE;
