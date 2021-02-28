@@ -791,3 +791,100 @@ select * from mber_tb;
 alter table qna_reply_tb drop constraint FK_QNA_TB_TO_QNA_REPLY_TB_1;
 
 ALTER TABLE qna_reply_tb ADD CONSTRAINT fk_qna_tb_to_qna_reply_tb_1 FOREIGN KEY ( q_bno ) REFERENCES qna_tb ( q_bno ) ON DELETE CASCADE;
+    
+    
+    
+ ------------------------------------------------------------------------------------------------------------
+ ---------------------------------------------------------------2월 28일 모달 실패해서 수거예약업체랑 수거예약테이블 외래키 끊어버림
+alter table tkawy_tb drop constraint FK_STORE_TB_TO_TKAWY_TB;
+
+commit;
+
+    
+------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------2월 28일 회원 기본키 변경(for 로그인)
+
+
+alter table qna_tb drop constraint fk_mber_tb_to_qna_tb_1;
+
+alter table qna_reply_tb drop constraint fk_qna_tb_to_qna_reply_tb_2;
+
+alter table tkawy_tb drop constraint fk_mber_tb_to_tkawy_tb_1;
+
+alter table bid_tb drop constraint fk_mber_tb_to_bid_tb_1;
+
+alter table shpng_tb drop constraint fk_mber_tb_to_shpng_tb_1;
+
+ALTER TABLE mber_tb drop constraint PK_MBER_TB;
+
+ALTER TABLE mber_tb ADD CONSTRAINT pk_mber_tb PRIMARY KEY ( m_email );
+
+delete tkawy_tb;
+
+delete mber_tb;
+
+alter table qna_tb rename column m_num to m_email;
+
+alter table qna_tb modify m_email varchar2(100);
+
+-- 외래키 설정---------
+ALTER TABLE qna_tb
+    ADD CONSTRAINT fk_mber_tb_to_qna_tb_1 FOREIGN KEY ( m_email )
+        REFERENCES mber_tb ( m_email );
+
+
+alter table qna_reply_tb rename column m_num to m_email;
+
+alter table qna_reply_tb modify m_email varchar2(100);
+
+
+-- 외래키 설정 --
+
+ALTER TABLE qna_reply_tb
+    ADD CONSTRAINT fk_qna_tb_to_qna_reply_tb_2 FOREIGN KEY ( m_email )
+        REFERENCES mber_tb ( m_email );
+        
+alter table tkawy_tb rename column m_num to m_email;
+
+alter table tkawy_tb modify m_email varchar2(100);
+
+
+-- 외래키 설정 --
+ALTER TABLE tkawy_tb
+    ADD CONSTRAINT fk_mber_tb_to_tkawy_tb_1 FOREIGN KEY ( m_email )
+        REFERENCES mber_tb ( m_email );
+
+-- 인증테이블 생성(변경) --
+CREATE TABLE mber_auth_tb (
+    m_email  VARCHAR2(1000) NOT NULL,
+    auth   VARCHAR2(50) NOT NULL
+);
+
+ALTER TABLE mber_auth_tb
+    ADD CONSTRAINT fk_mber_auth_tb FOREIGN KEY ( m_email )
+        REFERENCES mber_tb ( m_email );
+
+
+
+
+
+alter table bid_tb rename column m_num to m_email;
+
+alter table bid_tb modify m_email varchar2(100);
+
+
+----------------외래키 설정
+ALTER TABLE bid_tb
+    ADD CONSTRAINT fk_mber_tb_to_bid_tb_1 FOREIGN KEY ( m_email )
+        REFERENCES mber_tb ( m_email );
+
+
+alter table shpng_tb rename column m_num to m_email;
+
+alter table shpng_tb modify m_email varchar2(100);
+
+---------------------외래키설정
+ALTER TABLE shpng_tb
+    ADD CONSTRAINT fk_mber_tb_to_shpng_tb_1 FOREIGN KEY ( m_email )
+        REFERENCES mber_tb ( m_email );
+
