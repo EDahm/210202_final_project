@@ -792,13 +792,7 @@ alter table qna_reply_tb drop constraint FK_QNA_TB_TO_QNA_REPLY_TB_1;
 
 ALTER TABLE qna_reply_tb ADD CONSTRAINT fk_qna_tb_to_qna_reply_tb_1 FOREIGN KEY ( q_bno ) REFERENCES qna_tb ( q_bno ) ON DELETE CASCADE;
     
-    
-    
- ------------------------------------------------------------------------------------------------------------
- ---------------------------------------------------------------2월 28일 모달 실패해서 수거예약업체랑 수거예약테이블 외래키 끊어버림
-alter table tkawy_tb drop constraint FK_STORE_TB_TO_TKAWY_TB;
 
-commit;
 
     
 ------------------------------------------------------------------------------------------------------------------------
